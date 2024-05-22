@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-FHIR_SERVER_BASE_URL="http://pwebmedcit.services.brown.edu:8080/fhir"
+FHIR_SERVER_BASE_URL="http://pwebmedcit.services.brown.edu:9090/fhir"
 
 load_dotenv()
 
@@ -16,7 +16,7 @@ password = os.getenv("FHIR_PASSWORD")
 def request_patient(patient_id, credentials):
 
     req = requests.get(FHIR_SERVER_BASE_URL + "/Patient/" + str(patient_id), auth = credentials)
-    
+
     print(f"Requests status: {req.status_code}")
 
     response = req.json()
@@ -28,7 +28,7 @@ def request_patient(patient_id, credentials):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    
+
     result = None
     credentials = (username, password)
 
@@ -42,5 +42,6 @@ def index():
     return render_template('index.html', result=result)
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    port_str = os.environ['FHIR_PORT']
+    port_int = int(port_str)
+    app.run(debug=True, port=port_int)
