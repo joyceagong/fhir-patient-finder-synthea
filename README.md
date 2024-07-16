@@ -1,8 +1,8 @@
 # fhir-patient-finder
 
-This is a FHIR web application written in Python and using Flask as the backend. It can only be used for synthea datasets.
+This is a FHIR web application written in Python and using Flask as the backend.
 
-Following are the server port number and their respective datasets
+Following are the FHIR server port numbers and the datasets hosted on that ports.
 
 ```
 9090 -> synthea10 (demo dataset)
@@ -15,16 +15,14 @@ This app depends on Python 3 and a few Python packages outlined in the `requirem
 
 ## 2. Before running the app
 
-Change these parameters in the .env file
+Change these parameters in the .env file. Use the port number assigned to you to run the app for FHIR_PORT.
 
 ```
+FHIR_SERVER_BASE_URL= http://pwebmedcit.services.brown.edu:????/fhir
 FHIR_USERNAME = ???
 FHIR_PASSWORD = ???
-FHIR_PORT=5000
+FHIR_PORT=????
 ```
-
-and change the port number according to the dataset in the app.py file 
-FHIR_SERVER_BASE_URL= "http://pwebmedcit.services.brown.edu:????/fhir"
 
 ## 3. Running the App
 
@@ -46,6 +44,7 @@ python3 src/app.py
 ```
 
 
-This will start the app on port 5000. You can open your preferred browser and see the app running on `http://localhost:5000`
+This will start the app on port "FHIR_PORT". You can open your preferred browser and see the app running on `http://localhost:FHIR_PORT` replace the FHIR_PORT with the actual port number assigned to you. 
+The exact URL to the app can also be found on the terminal output after running the app.
 
 

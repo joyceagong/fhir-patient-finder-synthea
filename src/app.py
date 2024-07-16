@@ -6,10 +6,9 @@ from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-FHIR_SERVER_BASE_URL="http://pwebmedcit.services.brown.edu:9091/fhir"
-
 load_dotenv()
 
+FHIR_SERVER_BASE_URL=os.getenv("FHIR_SERVER_BASE_URL")
 username = os.getenv("FHIR_USERNAME")
 password = os.getenv("FHIR_PASSWORD")
 
