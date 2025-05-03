@@ -3,24 +3,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Methods 2025 Patient Finder</title>
+    <title>Alzheimer's Fracture Risk Tool</title>
+    <style>
+        .container {
+            display: grid;
+            place-items: center;
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+    
+        fieldset label {
+            margin-left: 10px;
+        }
+    </style>
+    
 </head>
 <body>
     <div class=container>
-    <h1>Methods 2025 Patient Finder</h1>
+    <h1>Alzheimer's Fracture Risk Tool</h1>
     <form method="post">
-        <label for="number">Enter a patient ID:</label>
-        <input type="text" name="number" id="number">
+        <!-- <label for="number">Enter a patient ID:</label>
+        <input type="text" name="number" id="number"> -->
+
+        <!-- <div> -->
+            <label>
+                <input type="checkbox" name="alzheimer">
+                Do you have Alzheimer's?
+            </label>
+        <!-- </div> -->
+        
+        <!-- <div> -->
+            <label>
+                <input type="checkbox" name="memantine">
+                Do you use memantine (the drug)?
+            </label>
+        <!-- </div> -->
+
+        <fieldset>
+            <legend>Do you have any of the following conditions?</legend>
+            <label><input type="checkbox" name="conditions" value="osteoporosis"> Osteoporosis</label>
+            <label><input type="checkbox" name="conditions" value="depression"> Depression</label>
+            <label><input type="checkbox" name="conditions" value="osteoarthritis"> Osteoarthritis</label>
+            <label><input type="checkbox" name="conditions" value="chf"> Congestive Heart Failure (CHF)</label>
+        </fieldset>
+        <br>
+
         <input type="submit" value="Search">
     </form>
     {% if result is not none %}
-    <h3>Result: </h3>
-    <p>First Name: {{ result.name[0].given[0] }}</p>
-    <p>Last Name: {{ result.name[0].family }}</p>
-    <p>Gender: {{ result.gender }}</p>
-    <p>Birth Date: {{ result.birthDate}}</p>
-    <p>Ethnicity: {{ result.extension[1].extension[0].valueCoding.display }}</p>
-    <p>Race: {{ result.extension[0].extension[0].valueCoding.display }}</p>
+    <h3>Estimated Fracture Risk</h3>
+    <p>Based on your selections, the percentage of patients with at least one fracture is:
+        <strong>{{ result.fracture_percentage }}%</strong>
+    </p>
+
     {% endif %}
     </div>
 </body>
