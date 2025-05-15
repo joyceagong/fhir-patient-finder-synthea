@@ -18,6 +18,11 @@
         fieldset label {
             margin-left: 10px;
         }
+
+        #memantine-section, #comorbidities-section {
+            margin-left: 20px;
+        }     
+
     </style>
     
 </head>
@@ -28,27 +33,36 @@
         <!-- <label for="number">Enter a patient ID:</label>
         <input type="text" name="number" id="number"> -->
 
-        <!-- <div> -->
-            <label>
-                <input type="checkbox" name="alzheimer">
-                Do you have Alzheimer's?
-            </label>
-        <!-- </div> -->
-        
-        <!-- <div> -->
+        <label>
+            <input type="checkbox" name="alzheimer" id="alzheimer">
+            Do you have Alzheimer's?
+        </label>
+
+    
+        <div id="memantine-section" style="display: none;">
             <label>
                 <input type="checkbox" name="memantine">
                 Do you use memantine (the drug)?
             </label>
-        <!-- </div> -->
+        </div>
+        
+        <!-- <div id="comorbidities-section" style="display: none;">
+            <fieldset>
+                <legend>Do you have any of the following conditions?</legend>
+                <label><input type="checkbox" name="conditions" value="osteoporosis"> Osteoporosis</label>
+                <label><input type="checkbox" name="conditions" value="depression"> Depression</label>
+                <label><input type="checkbox" name="conditions" value="osteoarthritis"> Osteoarthritis</label>
+                <label><input type="checkbox" name="conditions" value="chf"> Congestive Heart Failure (CHF)</label>
+            </fieldset>
+        </div> -->
 
-        <fieldset>
-            <legend>Do you have any of the following conditions?</legend>
-            <label><input type="checkbox" name="conditions" value="osteoporosis"> Osteoporosis</label>
-            <label><input type="checkbox" name="conditions" value="depression"> Depression</label>
-            <label><input type="checkbox" name="conditions" value="osteoarthritis"> Osteoarthritis</label>
-            <label><input type="checkbox" name="conditions" value="chf"> Congestive Heart Failure (CHF)</label>
-        </fieldset>
+        <script>
+            document.getElementById('alzheimer').addEventListener('change', function() {
+                const isChecked = this.checked;
+                document.getElementById('memantine-section').style.display = isChecked ? 'block' : 'none';
+                document.getElementById('comorbidities-section').style.display = isChecked ? 'block' : 'none';
+            });
+        </script>
         <br>
 
         <input type="submit" value="Search">
@@ -56,8 +70,10 @@
     {% if result is not none %}
     <h3>Estimated Fracture Risk</h3>
     <p>Based on your selections, the percentage of patients with at least one fracture is:
-        <strong>{{ result.fracture_percentage }}%</strong>
+        <strong>{{ result.fracture_percentage }}%</strong>   
     </p>
+    <img src="{{ url_for('static', filename='graph.png') }}" alt="Graph" width="500">
+
 
     {% endif %}
     </div>
